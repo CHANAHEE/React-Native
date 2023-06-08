@@ -1,24 +1,35 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, ActivityIndicator,Alert } from 'react-native'
+import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-// 8_ Stack Navigator 의 screen 으로 등록된 컴포넌트에서 전달받을 props 타입을 지정해줘야함. 
+// Stack Navigator의 screen으로 등록된 컴포넌트에서 전달받을 props의 타입지정
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootScreenList } from './types'
-type IntroProps = StackScreenProps<RootScreenList,'Intro'>
+type IntroProps= StackScreenProps<RootScreenList,'Intro'>
 
+// functional component - 파라미터로 props {navigation, route} 객체 받음
+export default function Intro(props:IntroProps):JSX.Element{ 
 
-// functional component
-// 7_ 파라미터로 props {navigation, route} 객체를 전달받는다. 
-export default function Intro(props: IntroProps):JSX.Element{
+    // 2. 로그인 한 적이 있는지 검사한 후, 결과에 따라 LoginNav or MainNav 로 이동
+    AsyncStorage.getItem('email')
+    .then((value)=>{
+        if(value)props.navigation.replace('MainNav')
+        else props.navigation.replace('LoginNav')
+    })
     
-
     return (
-        // 6_ 화면 전환 테스트 목적으로 보여질 임시 화면
+        // 1. 화면전환 테스트 목적으로 보여질 임시 화면
+        // <View style={style.root}>
+        //     <Text>Intro</Text>
+        //     <Button title='go login' onPress={()=>props.navigation.navigate('LoginNav')}></Button>
+        //     <Button title='go main' color='green' onPress={()=>props.navigation.navigate('MainNav')}></Button>
+        // </View>
+
+        // 2. AsyncStorage 가 비동기 방식으로 읽어오는 사이에 잠깐 보여질 수 있는 로딩 컴포넌트 
         <View style={style.root}>
-            <Text>Intro</Text>
-            <Button title='go login' onPress={()=>props.navigation.navigate('LoginNav')}></Button>
-            <View><Button title='메인화면으로..' color='green' onPress={()=>props.navigation.navigate('MainNav')}></Button></View>
+            <ActivityIndicator size='large' color='green'></ActivityIndicator>
         </View>
+        
     )
 }
 

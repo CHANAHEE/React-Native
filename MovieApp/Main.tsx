@@ -1,4 +1,4 @@
-// ## 1_ 앱 제작의 주요 작업 순서 ##################
+// ## 앱 제작의 주요 작업 순서 ##################
 // 0) react navigation, AsyncStorage 라이브러리 설치
 // 1) Main.tsx 에 최상위 Navigator를 배치
 // 2) Intro 화면 컴포넌트 제작
@@ -9,23 +9,25 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-// 2_ Navigator에 지정할 스크린 리스트 타입을 별도의 [ types.tsx ] 파일에 작성하여 관리하고 필요한 곳에서 import
+// Navigator에 지정할 스크린 리스트 타입을 별도의 [ types.tsx ] 파일에 작성하여 관리하고 필요한 곳에서 import
 import { RootScreenList } from './types'
 
-// 3_ 앱 전체 화면들을 전환할 수 있는 최상위 Stack Navigator 객체 생성
+//앱 전체 화면들을 전환할 수 있는 최상위 Stack Navigator 객체 생성
 const RootStack= createStackNavigator<RootScreenList>()
 
-// 4_ 최상위 Navigator에 의해 전환될 스크린 or 네비게이터 사용을 위한 import
+// 최상위 Navigator에 의해 전환될 스크린 or 네비게이터 사용을 위한 import
 import Intro from './Intro'
 import LoginNav from './navigators/LoginNav'
+import MainNav from './navigators/MainNav'
 
-// 5_ NavigationContainer를 가진 root 컴포넌트 - 앱의 시작 컴포넌트(index.js에서 설정)
+//NavigationContainer를 가진 root 컴포넌트 - 앱의 시작 컴포넌트(index.js에서 설정)
 export default function Main():JSX.Element{
     return (
         <NavigationContainer>
-            <RootStack.Navigator>
+            <RootStack.Navigator screenOptions={{headerShown: false}}>
                 <RootStack.Screen name='Intro' component={Intro}></RootStack.Screen>
                 <RootStack.Screen name='LoginNav' component={LoginNav}></RootStack.Screen>
+                <RootStack.Screen name='MainNav' component={MainNav}></RootStack.Screen>
             </RootStack.Navigator>
         </NavigationContainer>
     )
