@@ -4,6 +4,7 @@ import BigCatalog from './BigCatalog'
 
 type Props = {
     url: string
+    onPress?: (id:string)=>void | undefined
 }
 
 export default function BigCatalogList(props: Props): JSX.Element{
@@ -30,7 +31,7 @@ export default function BigCatalogList(props: Props): JSX.Element{
                 data={movies} 
                 renderItem={(obj)=>{
                     return(
-                        <BigCatalog movie={obj.item}></BigCatalog>
+                        <BigCatalog movie={obj.item} onPress={props.onPress}></BigCatalog>
                     )
                 }}></FlatList>
         </View>

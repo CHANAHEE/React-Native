@@ -3,13 +3,14 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'rea
 import { MovieInfo } from '../types'
 
 type Props = {
-    movie: MovieInfo
+    movie: MovieInfo,
+    onPress?: (id: string)=>void | undefined,
 }
 
 
 export default function BigCatalog(props: Props): JSX.Element{
     return(
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.8} onPress={()=>props.onPress!!(props.movie.id)}>
             <Image 
                 source={{uri:props.movie.large_cover_image}} 
                 style={{width: Dimensions.get('window').width, height: 300}}></Image>

@@ -26,7 +26,7 @@ export type MainNavScreenList = {
 // 4. MovieNav Stack Navigator 화면 리스트 타입
 export type MovieNavScreenList = {
     MovieList: undefined,
-    MovieDetail: undefined,
+    MovieDetail: undefined | {id:string},
 
     // 로그아웃시, Intro 화면으로 이동하기 위해 리스트 등록을 추가
     Intro: undefined,
@@ -39,4 +39,10 @@ export interface MovieInfo{
     year: string,
     genres: string[],
     large_cover_image: string,
+
+    // 영화 상세정보에서 필요한 key 들 추가
+    runtime: string,
+    rating: string,
+    like_count: string,
+    description_full: string,
 }
